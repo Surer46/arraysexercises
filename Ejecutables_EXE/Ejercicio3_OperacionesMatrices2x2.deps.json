@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Ejercicio3_OperacionesMatrices2x2/1.0.0": {
+        "runtime": {
+          "Ejercicio3_OperacionesMatrices2x2.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Ejercicio3_OperacionesMatrices2x2/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

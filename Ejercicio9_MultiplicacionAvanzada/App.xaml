@@ -1,0 +1,7 @@
+<Application x:Class="Ejercicio9_MultiplicacionAvanzada.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="frmAlgebraMatricial.xaml">
+    <Application.Resources>
+    </Application.Resources>
+</Application>

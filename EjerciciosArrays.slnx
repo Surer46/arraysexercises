@@ -1,0 +1,12 @@
+<Solution>
+  <Project Path="Ejercicio1_ContadorCeros/Ejercicio1_ContadorCeros.csproj" />
+  <Project Path="Ejercicio2_CuadroMagico/Ejercicio2_CuadroMagico.csproj" />
+  <Project Path="Ejercicio3_OperacionesMatrices2x2/Ejercicio3_OperacionesMatrices2x2.csproj" />
+  <Project Path="Ejercicio4_MatrizIdentidad/Ejercicio4_MatrizIdentidad.csproj" />
+  <Project Path="Ejercicio5_EstadisticasMatriz5x10/Ejercicio5_EstadisticasMatriz5x10.csproj" />
+  <Project Path="Ejercicio6_ResumenVentas/Ejercicio6_ResumenVentas.csproj" />
+  <Project Path="Ejercicio7_ResumenCalificaciones/Ejercicio7_ResumenCalificaciones.csproj" />
+  <Project Path="Ejercicio8_LaberintoPathfinding/Ejercicio8_LaberintoPathfinding.csproj" />
+  <Project Path="Ejercicio9_MultiplicacionAvanzada/Ejercicio9_MultiplicacionAvanzada.csproj" />
+  <Project Path="MenuPrincipal_Suite/MenuPrincipal_Suite.csproj" />
+</Solution>

@@ -1,0 +1,307 @@
+<Window x:Class="Ejercicio9_MultiplicacionAvanzada.frmAlgebraMatricial"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ejercicio 9 - Álgebra Matricial Avanzada (Multiplicación NxM por MxP, Transpuesta y Determinante)" 
+        Height="840" Width="1200" 
+        WindowStartupLocation="CenterScreen"
+        Background="#F8FAFC"
+        FontFamily="Segoe UI"
+        MinWidth="1100" MinHeight="760">
+
+    <Window.Resources>
+        <Style x:Key="BtnPrimarioStyle" TargetType="Button">
+            <Setter Property="Background" Value="#10B981"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="16,9"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                CornerRadius="12" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#059669"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#047857"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnSecundarioStyle" TargetType="Button">
+            <Setter Property="Background" Value="#ECFDF5"/>
+            <Setter Property="Foreground" Value="#065F46"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#A7F3D0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#D1FAE5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnPeligroStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FEF2F2"/>
+            <Setter Property="Foreground" Value="#DC2626"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#FECACA"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FEE2E2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CupertinoCard" TargetType="Border">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="16" Opacity="0.05" Direction="270" ShadowDepth="3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Border Grid.Row="0" Style="{StaticResource CupertinoCard}" Margin="0,0,0,18" Padding="20,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <!-- Icono Material Multiplicación Avanzada -->
+                        <Path Fill="#10B981" Width="24" Height="24" Stretch="Uniform" Margin="0,0,10,0"
+                              Data="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                        <TextBlock x:Name="lblTitulo" Text="Ejercicio 9 (Nivel Alto): Multiplicación Matricial Avanzada" 
+                                   FontSize="20" FontWeight="Bold" Foreground="#0F172A"/>
+                    </StackPanel>
+                    <TextBlock x:Name="lblSubtitulo" Text="Calcula el producto completo C = A × B (NxM por MxP) con algoritmo O(n³), matriz transpuesta y determinante por cofactores." 
+                               FontSize="13" Foreground="#64748B" Margin="34,4,0,0"/>
+                </StackPanel>
+
+                <!-- Badge Nivel Alto -->
+                <Border Grid.Column="1" Background="#ECFDF5" BorderBrush="#A7F3D0" BorderThickness="1" 
+                        CornerRadius="20" Padding="12,6" VerticalAlignment="Center">
+                    <TextBlock Text="Nivel Avanzado - Puntos Extra 10/10" FontSize="12" FontWeight="SemiBold" Foreground="#047857"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- CONTENIDO -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6.8*"/>
+                <ColumnDefinition Width="3.2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- MATRICES A, B Y C -->
+            <Border Grid.Column="0" Style="{StaticResource CupertinoCard}" Margin="0,0,12,0" Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Barra de configuración de dimensiones -->
+                    <Border Grid.Row="0" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" 
+                            CornerRadius="12" Padding="12" Margin="0,0,0,14">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="Preset de Dimensiones:" FontWeight="SemiBold" Foreground="#475569" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <Button x:Name="btnPreset2x2" Click="btnPreset2x2_Click" Content="2×2 · 2×2" Style="{StaticResource BtnSecundarioStyle}" Margin="0,0,6,0"/>
+                                <Button x:Name="btnPreset2x3" Click="btnPreset2x3_Click" Content="2×3 · 3×2" Style="{StaticResource BtnSecundarioStyle}" Margin="0,0,6,0"/>
+                                <Button x:Name="btnPreset3x3" Click="btnPreset3x3_Click" Content="3×3 · 3×3" Style="{StaticResource BtnSecundarioStyle}" Margin="0,0,6,0"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <Button x:Name="btnAleatorio" Click="btnAleatorio_Click" Style="{StaticResource BtnSecundarioStyle}" Margin="0,0,6,0">
+                                    <TextBlock Text="Aleatorio"/>
+                                </Button>
+                                <Button x:Name="btnLimpiar" Click="btnLimpiar_Click" Style="{StaticResource BtnPeligroStyle}">
+                                    <TextBlock Text="Limpiar"/>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Contenedor de las 3 Matrices (A × B = C) -->
+                    <Border Grid.Row="1" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" 
+                            CornerRadius="14" Padding="14">
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <!-- Matriz A -->
+                                <Border Style="{StaticResource CupertinoCard}" Padding="12" Margin="0,0,12,0">
+                                    <StackPanel>
+                                        <TextBlock x:Name="lblTituloA" Text="Matriz A (2 × 2)" FontWeight="Bold" FontSize="13" Foreground="#047857" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                                        <Grid x:Name="gridMatrizA"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Signo Multiplicación -->
+                                <TextBlock Text="×" FontSize="26" FontWeight="Bold" Foreground="#94A3B8" 
+                                           VerticalAlignment="Center" Margin="0,0,12,0"/>
+
+                                <!-- Matriz B -->
+                                <Border Style="{StaticResource CupertinoCard}" Padding="12" Margin="0,0,12,0">
+                                    <StackPanel>
+                                        <TextBlock x:Name="lblTituloB" Text="Matriz B (2 × 2)" FontWeight="Bold" FontSize="13" Foreground="#1D4ED8" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                                        <Grid x:Name="gridMatrizB"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Signo Igual -->
+                                <TextBlock Text="=" FontSize="26" FontWeight="Bold" Foreground="#94A3B8" 
+                                           VerticalAlignment="Center" Margin="0,0,12,0"/>
+
+                                <!-- Matriz C (Resultado) -->
+                                <Border Style="{StaticResource CupertinoCard}" Background="#ECFDF5" BorderBrush="#A7F3D0" Padding="12">
+                                    <StackPanel>
+                                        <TextBlock x:Name="lblTituloC" Text="Producto C (2 × 2)" FontWeight="Bold" FontSize="13" Foreground="#065F46" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                                        <Grid x:Name="gridMatrizC"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+
+                    <!-- Botón de Ejecución -->
+                    <Grid Grid.Row="2" Margin="0,14,0,0">
+                        <Button x:Name="btnMultiplicar" Click="btnMultiplicar_Click" 
+                                Style="{StaticResource BtnPrimarioStyle}" Height="46" FontSize="14">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Fill="White" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0"
+                                      Data="M8 5v14l11-7z"/>
+                                <TextBlock Text="Multiplicar Matrices y Generar Análisis" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- PANEL DE PASO A PASO, TRANSPUESTA Y DETERMINANTE -->
+            <Border Grid.Column="1" Style="{StaticResource CupertinoCard}" Margin="12,0,0,0" Padding="20">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="Análisis Álgebraico Completo" FontSize="16" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,12"/>
+
+                        <!-- Determinante de Matriz A -->
+                        <Border Background="#ECFDF5" BorderBrush="#A7F3D0" BorderThickness="1" CornerRadius="12" Padding="12" Margin="0,0,0,12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="DETERMINANTE DET(A)" FontSize="11" FontWeight="Bold" Foreground="#065F46"/>
+                                    <TextBlock x:Name="lblDetA" Text="0.0" FontSize="20" FontWeight="Bold" Foreground="#047857" Margin="0,2,0,0"/>
+                                </StackPanel>
+                                <Border Grid.Column="1" Background="#D1FAE5" CornerRadius="8" Padding="6,2" VerticalAlignment="Center">
+                                    <TextBlock Text="Cofactores" FontSize="11" FontWeight="SemiBold" Foreground="#047857"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <!-- Transpuesta de A -->
+                        <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="12" Padding="12" Margin="0,0,0,12">
+                            <StackPanel>
+                                <TextBlock Text="MATRIZ TRANSPUESTA (Aᵀ)" FontSize="11" FontWeight="Bold" Foreground="#64748B" Margin="0,0,0,6"/>
+                                <Grid x:Name="gridTranspuestaA" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Desglose Paso a Paso -->
+                        <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="12" Padding="12" Margin="0,0,0,12">
+                            <StackPanel>
+                                <TextBlock Text="DESGLOSE PASO A PASO C = A × B" FontSize="11" FontWeight="Bold" Foreground="#64748B" Margin="0,0,0,6"/>
+                                <ScrollViewer MaxHeight="140" VerticalScrollBarVisibility="Auto">
+                                    <StackPanel x:Name="panelDesglose">
+                                        <!-- Pasos formateados -->
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Explicación Pedagógica -->
+                        <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="12" Padding="12">
+                            <StackPanel>
+                                <TextBlock Text="MÉTODO UTILIZADO" FontSize="11" FontWeight="Bold" Foreground="#64748B"/>
+                                <TextBlock Text="AlgebraMatricialService.MultiplicarMatrices()" 
+                                           FontSize="11" FontFamily="Consolas" FontWeight="SemiBold" Foreground="#0F172A" Margin="0,2,0,4"/>
+                                <TextBlock Text="Triple ciclo for: i de 0 a N, j de 0 a P, k de 0 a M para calcular la sumatoria escalar C[i,j] += A[i,k]*B[k,j]. Valida compatibilidad dimensional." 
+                                           FontSize="11" Foreground="#64748B" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- FOOTER -->
+        <StatusBar Grid.Row="2" Background="Transparent" Margin="0,14,0,0">
+            <StatusBarItem>
+                <TextBlock x:Name="lblStatus" Text="Listo. Puedes modificar cualquier elemento de las matrices." 
+                           FontSize="12" Foreground="#64748B"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

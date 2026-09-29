@@ -1,0 +1,239 @@
+<Window x:Class="Ejercicio7_ResumenCalificaciones.frmResumenCalificaciones"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ejercicio 7 - Resumen y Análisis de Calificaciones" 
+        Height="820" Width="1180" 
+        WindowStartupLocation="CenterScreen"
+        Background="#F8FAFC"
+        FontFamily="Segoe UI"
+        MinWidth="1060" MinHeight="740">
+
+    <Window.Resources>
+        <Style x:Key="BtnPrimarioStyle" TargetType="Button">
+            <Setter Property="Background" Value="#10B981"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="16,9"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                CornerRadius="12" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#059669"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#047857"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnSecundarioStyle" TargetType="Button">
+            <Setter Property="Background" Value="#ECFDF5"/>
+            <Setter Property="Foreground" Value="#065F46"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#A7F3D0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#D1FAE5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CupertinoCard" TargetType="Border">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="16" Opacity="0.05" Direction="270" ShadowDepth="3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Border Grid.Row="0" Style="{StaticResource CupertinoCard}" Margin="0,0,0,18" Padding="20,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <!-- Icono Material Educación / Calificaciones -->
+                        <Path Fill="#10B981" Width="24" Height="24" Stretch="Uniform" Margin="0,0,10,0"
+                              Data="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                        <TextBlock x:Name="lblTitulo" Text="Ejercicio 7: Resumen y Análisis de Calificaciones" 
+                                   FontSize="20" FontWeight="Bold" Foreground="#0F172A"/>
+                    </StackPanel>
+                    <TextBlock x:Name="lblSubtitulo" Text="Matriz de 12 alumnos x 3 parciales: promedios individuales, promedio alto/bajo, parciales reprobados y distribución de frecuencias." 
+                               FontSize="13" Foreground="#64748B" Margin="34,4,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="btnRestaurar" Click="btnRestaurar_Click" 
+                            Style="{StaticResource BtnSecundarioStyle}" Margin="0,0,8,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Path Fill="#065F46" Width="14" Height="14" Stretch="Uniform" Margin="0,0,6,0"
+                                  Data="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                            <TextBlock Text="Restaurar Tabla Original"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="btnCalcular" Click="btnCalcular_Click" 
+                            Style="{StaticResource BtnPrimarioStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Path Fill="White" Width="14" Height="14" Stretch="Uniform" Margin="0,0,6,0"
+                                  Data="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            <TextBlock Text="Recalcular"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- CONTENIDO -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6.2*"/>
+                <ColumnDefinition Width="3.8*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- TABLA DE ALUMNOS (12 ALUMNOS x 3 PARCIALES + PROMEDIO + ESTADO) -->
+            <Border Grid.Column="0" Style="{StaticResource CupertinoCard}" Margin="0,0,12,0" Padding="16">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Registro de Notas (Editable por Parcial)" 
+                               FontSize="14" FontWeight="Bold" Foreground="#334155" Margin="4,0,0,10"/>
+
+                    <Border Grid.Row="1" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" 
+                            CornerRadius="12" Padding="10">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <Grid x:Name="gridCalificaciones">
+                                <!-- Generado en código -->
+                            </Grid>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- PANEL ESTADÍSTICO (INCISOS B, C, D, E) -->
+            <Border Grid.Column="1" Style="{StaticResource CupertinoCard}" Margin="12,0,0,0" Padding="20">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="Métricas y Distribución" FontSize="16" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,12"/>
+
+                        <!-- Tarjeta Promedio Alto y Bajo -->
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Promedio más alto -->
+                            <Border Grid.Column="0" Background="#ECFDF5" BorderBrush="#A7F3D0" BorderThickness="1" 
+                                    CornerRadius="12" Padding="12" Margin="0,0,6,0">
+                                <StackPanel>
+                                    <TextBlock Text="b) MÁS ALTO" FontSize="11" FontWeight="Bold" Foreground="#065F46"/>
+                                    <TextBlock x:Name="lblPromedioAlto" Text="9.40" FontSize="22" FontWeight="Bold" Foreground="#047857" Margin="0,2,0,2"/>
+                                    <TextBlock x:Name="lblAlumnoAlto" Text="Alumno 10" FontSize="11" FontWeight="SemiBold" Foreground="#065F46"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Promedio más bajo -->
+                            <Border Grid.Column="1" Background="#FEF2F2" BorderBrush="#FECACA" BorderThickness="1" 
+                                    CornerRadius="12" Padding="12" Margin="6,0,0,0">
+                                <StackPanel>
+                                    <TextBlock Text="c) MÁS BAJO" FontSize="11" FontWeight="Bold" Foreground="#991B1B"/>
+                                    <TextBlock x:Name="lblPromedioBajo" Text="5.00" FontSize="22" FontWeight="Bold" Foreground="#DC2626" Margin="0,2,0,2"/>
+                                    <TextBlock x:Name="lblAlumnoBajo" Text="Alumno 8" FontSize="11" FontWeight="SemiBold" Foreground="#B91C1C"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <!-- d) Total Parciales Reprobados -->
+                        <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="12" Padding="12" Margin="0,0,0,14">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="d) PARCIALES REPROBADOS (&lt; 7.0)" FontSize="11" FontWeight="Bold" Foreground="#64748B"/>
+                                    <TextBlock x:Name="lblTotalReprobados" Text="13 parciales" FontSize="18" FontWeight="Bold" Foreground="#DC2626" Margin="0,2,0,0"/>
+                                </StackPanel>
+                                <Border Grid.Column="1" Background="#FEE2E2" CornerRadius="20" Width="36" Height="36" VerticalAlignment="Center">
+                                    <TextBlock Text="⚠️" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <!-- e) Distribución de Calificaciones Finales -->
+                        <TextBlock Text="e) Distribución de Calificaciones Finales:" FontSize="13" FontWeight="Bold" Foreground="#334155" Margin="0,0,0,8"/>
+                        <StackPanel x:Name="panelDistribucion" Margin="0,0,0,14">
+                            <!-- Se generan las 6 barras de rango con formato oficial del PDF -->
+                        </StackPanel>
+
+                        <!-- Explicación pedagógica -->
+                        <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="12" Padding="12">
+                            <StackPanel>
+                                <TextBlock Text="MÉTODO UTILIZADO" FontSize="11" FontWeight="Bold" Foreground="#64748B"/>
+                                <TextBlock Text="ResumenCalificacionesService.AnalizarCalificaciones()" 
+                                           FontSize="11" FontFamily="Consolas" FontWeight="SemiBold" Foreground="#0F172A" Margin="0,2,0,4"/>
+                                <TextBlock Text="Calcula promedios por alumno iterando parciales, detecta notas &lt; 7.0, y clasifica los promedios en 6 intervalos para generar la tabla de frecuencias." 
+                                           FontSize="11" Foreground="#64748B" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- FOOTER -->
+        <StatusBar Grid.Row="2" Background="Transparent" Margin="0,14,0,0">
+            <StatusBarItem>
+                <TextBlock x:Name="lblStatus" Text="Listo. Puedes editar cualquier nota y hacer clic en Recalcular." 
+                           FontSize="12" Foreground="#64748B"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

@@ -1,0 +1,310 @@
+<Window x:Class="Ejercicio1_ContadorCeros.frmContadorCeros"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ejercicio 1 - Contador de Ceros por Renglón" 
+        Height="720" Width="1020" 
+        WindowStartupLocation="CenterScreen"
+        Background="#F8FAFC"
+        FontFamily="Segoe UI"
+        MinWidth="900" MinHeight="650">
+
+    <Window.Resources>
+        <!-- Estilo Botón Primario Verde Esmeralda (Cupertino Pill) -->
+        <Style x:Key="BtnPrimarioStyle" TargetType="Button">
+            <Setter Property="Background" Value="#10B981"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="16,9"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                CornerRadius="12" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#059669"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#047857"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo Botón Secundario Claro -->
+        <Style x:Key="BtnSecundarioStyle" TargetType="Button">
+            <Setter Property="Background" Value="#ECFDF5"/>
+            <Setter Property="Foreground" Value="#065F46"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#A7F3D0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#D1FAE5"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#A7F3D0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo Botón Peligro / Limpiar -->
+        <Style x:Key="BtnPeligroStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FEF2F2"/>
+            <Setter Property="Foreground" Value="#DC2626"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#FECACA"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FEE2E2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo Tarjeta Cupertino -->
+        <Style x:Key="CupertinoCard" TargetType="Border">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="16" Opacity="0.05" Direction="270" ShadowDepth="3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo Celda de Matriz -->
+        <Style x:Key="MatrizTextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#1E293B"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" CornerRadius="10" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="2"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#10B981"/>
+                                <Setter TargetName="border" Property="Background" Value="#ECFDF5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <!-- Header -->
+            <RowDefinition Height="Auto"/>
+            <!-- Contenido Principal -->
+            <RowDefinition Height="*"/>
+            <!-- Footer / Barra de Estado -->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER SUPERIOR ESTILO CUPERTINO -->
+        <Border Grid.Row="0" Style="{StaticResource CupertinoCard}" Margin="0,0,0,20" Padding="20,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <!-- Icono Material Grid -->
+                        <Path Fill="#10B981" Width="24" Height="24" Stretch="Uniform" Margin="0,0,10,0"
+                              Data="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"/>
+                        <TextBlock x:Name="lblTitulo" Text="Ejercicio 1: Contador de Ceros por Renglón" 
+                                   FontSize="20" FontWeight="Bold" Foreground="#0F172A"/>
+                    </StackPanel>
+                    <TextBlock x:Name="lblSubtitulo" Text="Analiza un arreglo bidimensional 5x5 y calcula cuántos ceros contiene cada renglón de forma orientada a objetos." 
+                               FontSize="13" Foreground="#64748B" Margin="34,4,0,0"/>
+                </StackPanel>
+
+                <!-- Badge de Estado Cupertino -->
+                <Border Grid.Column="1" Background="#ECFDF5" BorderBrush="#A7F3D0" BorderThickness="1" 
+                        CornerRadius="20" Padding="12,6" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="8" Height="8" Fill="#10B981" Margin="0,0,6,0"/>
+                        <TextBlock Text="Estructura de Datos 4A-4D" FontSize="12" FontWeight="SemiBold" Foreground="#065F46"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- CONTENIDO PRINCIPAL: 2 COLUMNAS (MATRIZ INTERACTIVA Y PANEL DE RESULTADOS) -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <!-- Matriz y Controles -->
+                <ColumnDefinition Width="6*"/>
+                <!-- Resultados y Explicación -->
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- COLUMNA IZQUIERDA: MATRIZ Y ACCIONES -->
+            <Border Grid.Column="0" Style="{StaticResource CupertinoCard}" Margin="0,0,12,0" Padding="24">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Barra de herramientas superior -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,16">
+                        <Button x:Name="btnCargarDefecto" Click="btnCargarDefecto_Click" 
+                                Style="{StaticResource BtnSecundarioStyle}" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Fill="#065F46" Width="14" Height="14" Stretch="Uniform" Margin="0,0,6,0"
+                                      Data="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                                <TextBlock Text="Cargar del PDF"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="btnAleatorio" Click="btnAleatorio_Click" 
+                                Style="{StaticResource BtnSecundarioStyle}" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Fill="#065F46" Width="14" Height="14" Stretch="Uniform" Margin="0,0,6,0"
+                                      Data="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                <TextBlock Text="Aleatorio"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="btnLimpiar" Click="btnLimpiar_Click" 
+                                Style="{StaticResource BtnPeligroStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Fill="#DC2626" Width="14" Height="14" Stretch="Uniform" Margin="0,0,6,0"
+                                      Data="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                <TextBlock Text="Limpiar"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- Contenedor de la Cuadrícula Matriz 5x5 -->
+                    <Border Grid.Row="1" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" 
+                            CornerRadius="14" Padding="16">
+                        <Grid x:Name="gridMatriz" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <!-- Las 5 filas y 5 columnas se crean dinámicamente en código para 5x5 -->
+                        </Grid>
+                    </Border>
+
+                    <!-- Botón de Ejecución Principal -->
+                    <Grid Grid.Row="2" Margin="0,16,0,0">
+                        <Button x:Name="btnCalcular" Click="btnCalcular_Click" 
+                                Style="{StaticResource BtnPrimarioStyle}" Height="46" FontSize="14">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Fill="White" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0"
+                                      Data="M8 5v14l11-7z"/>
+                                <TextBlock Text="Calcular Ceros por Renglón" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- COLUMNA DERECHA: RESULTADOS Y EXPLICACIÓN -->
+            <Border Grid.Column="1" Style="{StaticResource CupertinoCard}" Margin="12,0,0,0" Padding="24">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Resultados del Análisis" FontSize="16" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,12"/>
+
+                        <!-- Tarjeta Cupertino para Total de Ceros -->
+                        <Border Background="#ECFDF5" BorderBrush="#A7F3D0" BorderThickness="1" CornerRadius="12" Padding="16" Margin="0,0,0,16">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="TOTAL GENERAL" FontSize="11" FontWeight="Bold" Foreground="#065F46" Opacity="0.8"/>
+                                    <TextBlock x:Name="lblTotalCeros" Text="6 ceros" FontSize="26" FontWeight="Bold" Foreground="#047857"/>
+                                </StackPanel>
+                                <Border Grid.Column="1" Background="#D1FAE5" Width="44" Height="44" CornerRadius="22" VerticalAlignment="Center">
+                                    <Path Fill="#047857" Width="20" Height="20" Stretch="Uniform" Data="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <TextBlock Text="Desglose por Renglón:" FontSize="13" FontWeight="SemiBold" Foreground="#475569" Margin="0,0,0,8"/>
+                        
+                        <!-- Lista de tarjetas de renglones -->
+                        <StackPanel x:Name="panelRenglones" Margin="0,0,0,16">
+                            <!-- Se generan dinámicamente con estilos Cupertino -->
+                        </StackPanel>
+
+                        <!-- Explicación Pedagógica del Método -->
+                        <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="12" Padding="14">
+                            <StackPanel>
+                                <TextBlock Text="MÉTODO UTILIZADO" FontSize="11" FontWeight="Bold" Foreground="#64748B"/>
+                                <TextBlock Text="MatrizContadorCerosService.ContarCerosPorRenglon()" 
+                                           FontSize="12" FontFamily="Consolas" FontWeight="SemiBold" Foreground="#0F172A" Margin="0,2,0,6"/>
+                                <TextBlock Text="Recorre con dos ciclos anidados: para cada renglón i, itera sus columnas j. Si matriz[i,j] == 0 incrementa el contador del renglón. Retorna el arreglo de conteos." 
+                                           FontSize="12" Foreground="#64748B" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- FOOTER / ESTADO -->
+        <StatusBar Grid.Row="2" Background="Transparent" Margin="0,14,0,0">
+            <StatusBarItem>
+                <TextBlock x:Name="lblStatus" Text="Listo. Puedes editar las celdas o cargar el arreglo de prueba." 
+                           FontSize="12" Foreground="#64748B"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

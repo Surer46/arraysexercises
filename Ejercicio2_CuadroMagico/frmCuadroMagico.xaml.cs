@@ -23,6 +23,8 @@ namespace Ejercicio2_CuadroMagico
 
         private void Tamano_Changed(object sender, RoutedEventArgs e)
         {
+            if (gridTableroCompleto == null || rb3x3 == null || rb4x4 == null || rb5x5 == null) return;
+
             if (rb3x3.IsChecked == true) dimensionN = 3;
             else if (rb4x4.IsChecked == true) dimensionN = 4;
             else if (rb5x5.IsChecked == true) dimensionN = 5;

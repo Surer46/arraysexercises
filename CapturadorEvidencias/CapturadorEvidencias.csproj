@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ejercicio1_ContadorCeros\Ejercicio1_ContadorCeros.csproj" />
+    <ProjectReference Include="..\Ejercicio2_CuadroMagico\Ejercicio2_CuadroMagico.csproj" />
+    <ProjectReference Include="..\Ejercicio3_OperacionesMatrices2x2\Ejercicio3_OperacionesMatrices2x2.csproj" />
+    <ProjectReference Include="..\Ejercicio4_MatrizIdentidad\Ejercicio4_MatrizIdentidad.csproj" />
+    <ProjectReference Include="..\Ejercicio5_EstadisticasMatriz5x10\Ejercicio5_EstadisticasMatriz5x10.csproj" />
+    <ProjectReference Include="..\Ejercicio6_ResumenVentas\Ejercicio6_ResumenVentas.csproj" />
+    <ProjectReference Include="..\Ejercicio7_ResumenCalificaciones\Ejercicio7_ResumenCalificaciones.csproj" />
+    <ProjectReference Include="..\Ejercicio8_LaberintoPathfinding\Ejercicio8_LaberintoPathfinding.csproj" />
+    <ProjectReference Include="..\Ejercicio9_MultiplicacionAvanzada\Ejercicio9_MultiplicacionAvanzada.csproj" />
+    <ProjectReference Include="..\MenuPrincipal_Suite\MenuPrincipal_Suite.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+</Project>
